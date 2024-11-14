@@ -20,27 +20,29 @@ function App() {
 
   return (
     <>
-      <div className="mb-3">
-        <div className="mb-5">
-          <ExpenseForm
-            onSubmit={(expense) =>
-              setExpenses([
-                ...expenses,
-                { ...expense, id: expenses.length + 1 },
-              ])
-            }
+      <div className="p-5">
+        <div className="mb-3">
+          <div className="mb-5">
+            <ExpenseForm
+              onSubmit={(expense) =>
+                setExpenses([
+                  ...expenses,
+                  { ...expense, id: expenses.length + 1 },
+                ])
+              }
+            />
+          </div>
+          <ExpenseFilter
+            onSelectCategory={(category) => setSelectedCategory(category)}
           />
         </div>
-        <ExpenseFilter
-          onSelectCategory={(category) => setSelectedCategory(category)}
+        <ExpenseList
+          expenses={visibleExpenses}
+          onDelete={(id) =>
+            setExpenses(expenses.filter((expense) => expense.id !== id))
+          }
         />
       </div>
-      <ExpenseList
-        expenses={visibleExpenses}
-        onDelete={(id) =>
-          setExpenses(expenses.filter((expense) => expense.id !== id))
-        }
-      />
     </>
   );
 }
